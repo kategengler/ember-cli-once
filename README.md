@@ -1,25 +1,51 @@
-# Ember-cli-once
+# ember-cli-once
 
-This README outlines the details of collaborating on this Ember addon.
+[![master branch build status][travis-svg]][travis-url]
 
-## Installation
+Ember CLI one-time calculation addon.
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+`ember-cli-once` exposes a factory which limits a function's executions. Its
+return value will be calculated on first execution and cached. Subsequent calls
+will immediately return the cached result.
 
-## Running
+## Example
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+```js
+import Ember from 'ember';
+import once from 'once';
 
-## Running Tests
+var i = 0;
+var foo = Ember.Object.create({
+	increment: once(function () {
+		// only ever hit once
+		return ++i;
+	})
+});
 
-* `ember test`
-* `ember test --server`
+foo.increment(); // -> 1
+foo.increment(); // -> 1
+```
 
-## Building
+## Installing
 
-* `ember build`
+With [npm][npm]:
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+```sh
+$ npm install --save ember-cli-once
+```
+
+Or with [Ember CLI][cli]:
+
+```sh
+$ ember install ember-cli-once
+```
+
+## License
+
+[MIT license](LICENSE.md).
+
+[travis-svg]: https://travis-ci.org/j-/ember-cli-once.svg?branch=master
+[travis-url]: https://travis-ci.org/j-/ember-cli-once
+[ember]: http://emberjs.com/
+[npm]: https://www.npmjs.com/
+[cli]: http://www.ember-cli.com/
