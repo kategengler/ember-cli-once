@@ -1,9 +1,14 @@
 import Em from 'ember';
 var observer = Em.observer;
 
+var makeFunction = function (fn) {
+	return (typeof fn === 'function') ? fn : function () {};
+};
+
 var _once = function (fn) {
 	var result;
 	var executed = false;
+	fn = makeFunction(fn);
 	return function () {
 		if (!executed) {
 			result = fn.apply(this, arguments);
